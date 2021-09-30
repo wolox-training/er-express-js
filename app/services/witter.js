@@ -1,10 +1,15 @@
 import axios from 'axios';
 
+const config = require('../../config');
+const logger = require('../logger');
+const errors = require('../errors');
+
 export async function weet() {
   try {
-    const response = await axios.get('https://quote-garden.herokuapp.com/api/v3/quotes/random');
-    return response.data.data;
-  } catch (error) {
-    return { message: 'Error en el servidor', error };
+    const { data } = await axios.get(`${config.common.apiClient}/quotes/random`);
+    return data;
+  } catch (err) {
+    const error = errors.defaultError('There is an error in server');
+    return logger.error(error);
   }
 }
