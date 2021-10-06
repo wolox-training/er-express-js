@@ -1,15 +1,15 @@
-import axios from 'axios';
-
-const config = require('../../config');
+const axios = require('axios');
+const { apiClient } = require('../../config').common;
 const logger = require('../logger');
-const errors = require('../errors');
+const { weetApiError } = require('../errors');
+const { ERROR_API } = require('../../config/messageError');
 
-export async function weet() {
+exports.weet = async () => {
   try {
-    const { data } = await axios.get(`${config.common.apiClient}/quotes/random`);
+    const { data } = await axios.get(`${apiClient}/quotes/random`);
     return data;
-  } catch (err) {
-    const error = errors.defaultError('There is an error in server');
-    return logger.error(error);
+  } catch (error) {
+    logger.error(error.message);
+    return weetApiError(ERROR_API);
   }
-}
+};
