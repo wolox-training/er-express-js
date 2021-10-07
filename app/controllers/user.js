@@ -1,17 +1,18 @@
-const { registerUser } = require('../services/user');
+const { registerUser, validateUser } = require('../services/user');
 const { verifyEmail, verifyPassword, encriptPassword } = require('../helpers/user');
 const logger = require('../logger');
 
 exports.createUser = async (req, res, next) => {
   try {
-    const { nombre, apellido, email } = req.body;
+    const { name, last_name, email } = req.body;
     await verifyEmail(email);
-    await verifyPassword(req.body.contraseña);
-    // if (!pwd) res.status(422).json('La contraseña debe tener minimo 8 caracteres y ser alfanumerica');
-    const password = await encriptPassword(req.body.contraseña);
-    const { nombre: name, email: em } = await registerUser(nombre, apellido, email, password);
-    // console.log(name, em);
-    return res.status(201).json({ name, em });
+    await validateUser(email);
+    await verifyPassword(req.body.password);
+    const password = await encriptPassword(req.body.password);
+    const user = await registerUser(name, last_name, email, password);
+    return res
+      .status(201)
+      .json({ name: user.name, last_name: user.last_name, email: user.email, password: user.password });
   } catch (error) {
     logger.error(error.message);
     return next(error);

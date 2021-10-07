@@ -1,5 +1,6 @@
 exports.DB_ERROR = 'there are error in database';
 exports.EMAIL_DOMAIN = 'unauthorized email domain';
-exports.ERROR_DOMAIN = 'Email validation error';
-exports.ERROR_PASSWORD = 'the password does not meet the minimum requirements';
-exports.ERROR_HASH = 'djdjdjd';
+exports.DOMAIN_ERROR = 'Email validation error';
+exports.PASSWORD_ERROR = 'the password does not meet the minimum requirements';
+exports.HASH_ERROR = 'failed to encrypt password';
+exports.USER_ERROR = 'user already exists';

@@ -6,10 +6,11 @@ const DEFAULT_STATUS_CODE = 500;
 const statusCodes = {
   [errors.DATABASE_ERROR]: 503,
   [errors.DEFAULT_ERROR]: 500,
-  [errors.EMAIL_DOMAIN]: 400,
-  [errors.ERROR_DOMAIN]: 500,
-  [errors.ERROR_PASSWORD]: 422,
-  [errors.ERROR_HASH]: 500
+  [errors.EMAIL_DOMAIN]: 422,
+  [errors.DOMAIN_ERROR]: 500,
+  [errors.PASSWORD_ERROR]: 422,
+  [errors.HASH_ERROR]: 500,
+  [errors.USER_ERROR]: 422
 };
 
 exports.handle = (error, req, res, next) => {

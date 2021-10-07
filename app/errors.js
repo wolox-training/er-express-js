@@ -9,14 +9,17 @@ exports.databaseError = message => internalError(message, exports.DATABASE_ERROR
 exports.DEFAULT_ERROR = 'default_error';
 exports.defaultError = message => internalError(message, exports.DEFAULT_ERROR);
 
-exports.ERROR_DOMAIN = 'domain_error';
-exports.errorDomain = message => internalError(message, exports.ERROR_DOMAIN);
+exports.DOMAIN_ERROR = 'domain_error';
+exports.domainError = message => internalError(message, exports.ERROR_DOMAIN);
 
 exports.EMAIL_DOMAIN = 'domain_invalid';
-exports.emailDomain = message => internalError(message, exports.EMAIL_DOMAIN);
+exports.emailDomain = message => internalError(message, exports.DOMAIN_ERROR);
 
-exports.ERROR_PASSWORD = 'password_invalid';
-exports.errorPassword = message => internalError(message, exports.ERROR_PASSWORD);
+exports.PASSWORD_ERROR = 'password_invalid';
+exports.passwordError = message => internalError(message, exports.PASSWORD_ERROR);
 
-exports.ERROR_HASH = 'bycript_error';
-exports.errorHash = message => internalError(message, exports.ERROR_HASH);
+exports.HASH_ERROR = 'bycript_error';
+exports.hashError = message => internalError(message, exports.HASH_ERROR);
+
+exports.USER_ERROR = 'exist_user';
+exports.userError = message => internalError(message, exports.USER_ERROR);

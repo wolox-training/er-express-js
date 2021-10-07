@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const logger = require('../logger');
-const { emailDomain, errorPassword, errorHash } = require('../errors');
-const { EMAIL_DOMAIN, ERROR_PASSWORD, ERROR_HASH } = require('../../config/messageError');
+const { emailDomain, passwordError, hashError } = require('../errors');
+const { EMAIL_DOMAIN, PASSWORD_ERROR, HASH_ERROR } = require('../../config/messageError');
 
 exports.verifyEmail = email => {
   try {
@@ -18,19 +18,20 @@ exports.verifyPassword = pwd => {
   try {
     const password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (password.test(pwd)) return logger.info('validated password');
-    logger.error(ERROR_PASSWORD);
-    throw errorPassword(ERROR_PASSWORD);
+    logger.error(PASSWORD_ERROR);
+    throw passwordError(PASSWORD_ERROR);
   } catch (error) {
     logger.error(error.message);
-    throw errorPassword(ERROR_PASSWORD);
+    throw passwordError(PASSWORD_ERROR);
   }
 };
 
 exports.encriptPassword = pwd => {
   try {
+    logger.info('password encript');
     return bcrypt.hash(pwd, 15);
   } catch (error) {
     logger.error(error.message);
-    throw errorHash(ERROR_HASH);
+    throw hashError(HASH_ERROR);
   }
 };
