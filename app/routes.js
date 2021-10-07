@@ -1,11 +1,7 @@
-import user from './controllers/user';
-// const controller = require('./controllers/controller');
+const { createUser } = require('./controllers/user');
 const { healthCheck } = require('./controllers/healthCheck');
 
 exports.init = app => {
   app.get('/health', healthCheck);
-  app.post('/users', user.add);
-  // app.get('/endpoint/get/path', [], controller.methodGET);
-  // app.put('/endpoint/put/path', [], controller.methodPUT);
-  // app.post('/endpoint/post/path', [], controller.methodPOST);
+  app.post('/users', createUser);
 };

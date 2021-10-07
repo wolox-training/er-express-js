@@ -1,15 +1,19 @@
-import { verifyEmail, verifyPassword, encriptPassword } from '../helpers/user';
-import { registerUser } from '../services/user';
+const { registerUser } = require('../services/user');
+const { verifyEmail, verifyPassword, encriptPassword } = require('../helpers/user');
+const logger = require('../logger');
 
-export default {
-  add: async (req, res) => {
+exports.createUser = async (req, res, next) => {
+  try {
     const { nombre, apellido, email } = req.body;
-    const pwd = await verifyPassword(req.body.contraseña);
-    if (!pwd) res.status(422).json('La contraseña debe tener minimo 8 caracteres y ser alfanumerica');
-    const contraseña = await encriptPassword(req.body.contraseña);
-    const emailVerify = verifyEmail(email);
-    if (!emailVerify) res.status(422).json('El email no pertenece al dominio de la compañia');
-    const addUser = await registerUser(nombre, apellido, email, contraseña);
-    res.status(addUser.status).json(addUser.data);
+    await verifyEmail(email);
+    await verifyPassword(req.body.contraseña);
+    // if (!pwd) res.status(422).json('La contraseña debe tener minimo 8 caracteres y ser alfanumerica');
+    const password = await encriptPassword(req.body.contraseña);
+    const { nombre: name, email: em } = await registerUser(nombre, apellido, email, password);
+    // console.log(name, em);
+    return res.status(201).json({ name, em });
+  } catch (error) {
+    logger.error(error.message);
+    return next(error);
   }
 };
