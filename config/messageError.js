@@ -1,1 +1,1 @@
-exports.ERROR_API = 'There is an error in Api Weet';
+exports.API_ERROR = 'There is an error in Api Weet';

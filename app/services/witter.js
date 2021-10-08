@@ -2,7 +2,7 @@ const axios = require('axios');
 const { apiClient } = require('../../config').common;
 const logger = require('../logger');
 const { weetApiError } = require('../errors');
-const { ERROR_API } = require('../../config/messageError');
+const { API_ERROR } = require('../../config/messageError');
 
 exports.weet = async () => {
   try {
@@ -10,6 +10,6 @@ exports.weet = async () => {
     return data;
   } catch (error) {
     logger.error(error.message);
-    return weetApiError(ERROR_API);
+    throw weetApiError(API_ERROR);
   }
 };
