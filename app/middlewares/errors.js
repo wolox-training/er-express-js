@@ -10,7 +10,8 @@ const statusCodes = {
   [errors.DOMAIN_ERROR]: 500,
   [errors.PASSWORD_ERROR]: 422,
   [errors.HASH_ERROR]: 500,
-  [errors.USER_ERROR]: 422
+  [errors.USER_ERROR]: 422,
+  [errors.API_ERROR]: 500
 };
 
 exports.handle = (error, req, res, next) => {

@@ -23,3 +23,6 @@ exports.hashError = message => internalError(message, exports.HASH_ERROR);
 
 exports.USER_ERROR = 'exist_user';
 exports.userError = message => internalError(message, exports.USER_ERROR);
+
+exports.WEET_API_ERROR = 'api_error';
+exports.weetApiError = message => internalError(message, exports.WEET_API_ERROR);
