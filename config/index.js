@@ -1,5 +1,4 @@
-const ENVIRONMENT = process.env.NODE_ENV || 'development';
-
+const ENVIRONMENT = process.env.NODE_ENV || 'testing';
 // eslint-disable-next-line global-require
 if (ENVIRONMENT !== 'production') require('dotenv').config();
 
