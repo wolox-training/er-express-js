@@ -3,11 +3,11 @@ const logger = require('../logger');
 const { databaseError, userError } = require('../errors');
 const { DB_ERROR, USER_ERROR } = require('../../config/messageError');
 
-exports.registerUser = async (name, last_name, email, password) => {
+exports.registerUser = async (name, lastName, email, password) => {
   try {
     const createUser = await user.create({
       name,
-      last_name,
+      lastName,
       email,
       password
     });

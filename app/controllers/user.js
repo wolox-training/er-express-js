@@ -4,15 +4,15 @@ const logger = require('../logger');
 
 exports.createUser = async (req, res, next) => {
   try {
-    const { name, last_name, email } = req.body;
+    const { name, lastName, email } = req.body;
     await verifyEmail(email);
     await validateUser(email);
     await verifyPassword(req.body.password);
     const password = await encriptPassword(req.body.password);
-    const user = await registerUser(name, last_name, email, password);
+    const user = await registerUser(name, lastName, email, password);
     return res
       .status(201)
-      .json({ name: user.name, last_name: user.last_name, email: user.email, password: user.password });
+      .json({ name: user.name, lastName: user.lastName, email: user.email, password: user.password });
   } catch (error) {
     logger.error(error.message);
     return next(error);
