@@ -22,6 +22,8 @@
     "migrations": "sequelize db:migrate",
     "start": "node server.js",
     "seed": "sequelize db:seed:all",
+    "back-migration": "sequelize-cli db:migrate:undo:all",
+    "last-migration": "sequelize-cli db:migrate:undo",
     "create-seed": "sequelize seed:generate --name"
   },
   "cacheDirectories": [
