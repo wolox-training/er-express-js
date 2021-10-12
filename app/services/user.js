@@ -1,13 +1,13 @@
 const { user } = require('../models/index');
 const logger = require('../logger');
-const { databaseError, userError } = require('../errors');
-const { DB_ERROR, USER_ERROR } = require('../../config/messageError');
+const { databaseError } = require('../errors');
+const { DB_ERROR } = require('../../config/messageError');
 
-exports.registerUser = async (name, last_name, email, password) => {
+exports.registerUser = async (name, lastName, email, password) => {
   try {
     const createUser = await user.create({
       name,
-      last_name,
+      lastName,
       email,
       password
     });
@@ -18,12 +18,13 @@ exports.registerUser = async (name, last_name, email, password) => {
   }
 };
 
-exports.validateUser = async email => {
+exports.findUserByEmail = async email => {
   try {
     const userExist = await user.findOne({ where: { email } });
-    if (userExist) throw userError(USER_ERROR);
+    logger.info('find user');
+    return userExist;
   } catch (error) {
     logger.error(error.message);
-    throw userError(USER_ERROR);
+    throw databaseError(DB_ERROR);
   }
 };

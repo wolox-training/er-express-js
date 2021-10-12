@@ -5,11 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     'user',
     {
       name: { allowNull: false, type: DataTypes.STRING },
-      last_name: { allowNull: false, type: DataTypes.STRING },
+      lastName: { allowNull: false, type: DataTypes.STRING },
       email: { allowNull: false, unique: true, type: DataTypes.STRING },
       password: { allowNull: false, type: DataTypes.STRING }
     },
     {
+      underscored: true,
       tableName: 'users'
     }
   );

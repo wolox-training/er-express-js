@@ -9,11 +9,8 @@ exports.databaseError = message => internalError(message, exports.DATABASE_ERROR
 exports.DEFAULT_ERROR = 'default_error';
 exports.defaultError = message => internalError(message, exports.DEFAULT_ERROR);
 
-exports.DOMAIN_ERROR = 'domain_error';
-exports.domainError = message => internalError(message, exports.ERROR_DOMAIN);
-
-exports.EMAIL_DOMAIN = 'domain_invalid';
-exports.emailDomain = message => internalError(message, exports.DOMAIN_ERROR);
+exports.EMAIL_ERROR = 'domain_invalid';
+exports.emailError = message => internalError(message, exports.EMAIL_ERROR);
 
 exports.PASSWORD_ERROR = 'password_invalid';
 exports.passwordError = message => internalError(message, exports.PASSWORD_ERROR);

@@ -2,20 +2,35 @@ const supertest = require('supertest');
 const app = require('../app');
 
 const api = supertest(app);
-const { createUser } = require('../app/controllers/user');
 
-describe('Controller user', () => {
-  it('deberia ser una función', () => {
-    expect(typeof createUser).toBe('function');
+describe('User registration controller', () => {
+  test('create user', async () => {
+    const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '12345678e' };
+    await api
+      .post('/users')
+      .send(user)
+      .set('Accept', 'application/json')
+      .expect(201)
+      .expect('Content-Type', /application\/json/);
   });
-});
-
-test('add user', async done => {
-  const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '12345678e' };
-  await api
-    .post('/users')
-    .send(user)
-    .expect(201)
-    .expect('Content-Type', /application\/json/);
-  done();
+  test('password invalid', async done => {
+    const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '1234567' };
+    await api
+      .post('/users')
+      .send(user)
+      .set('Accept', 'application/json')
+      .expect(422)
+      .expect('Content-Type', /application\/json/);
+    done();
+  });
+  test('parameters not null', async done => {
+    const user = { email: '', name: '', lastName: '', password: '' };
+    await api
+      .post('/users')
+      .send(user)
+      .set('Accept', 'application/json')
+      .expect(422)
+      .expect('Content-Type', /application\/json/);
+    done();
+  });
 });
