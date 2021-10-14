@@ -13,7 +13,6 @@ Nvm approach is preferred.
 
 Run `npm install` or `yarn` from rootpath of the project.
 
-
 #### Database configuration
 
 Before running the app, make sure you have [postgresql installed](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04) and a db created, to create it run the following steps inside a psql terminal:
@@ -40,7 +39,6 @@ Then, set in `.env` some variables:
 To create a migration, run `./node_modules/.bin/sequelize migration:create --name="my-migration-name" --config ./migrations/config.js --migrations-path ./migrations/migrations`.
 
 To run them, execute `npm run migrations`.
-
 
 #### Starting your app
 
@@ -99,7 +97,6 @@ Remember that you have to create a model before, and the `nameOfModel` will be t
 Factory By Models have also two additional functions, `factoryAllModels()` and `factoryWithPredeterminatedValue('nameOfModel', 'nameOfAttribute', 'value')`. The first one will define factories for ALL the models you have, so you don't have to worry to declare a factory every time you want to build another. The second one, maybe you have a customized attribute in your model, or with some values we don't know. So you may use it, you will have to pass the name of the model, the attribute name and the value you want it to have.
 
 Also, it takes values predefined in the `type` field (Sequelize Datatype) and the validations you have in your MODEL (`validate` field),so if you want to validate those values on middlewares or somewhere else, factoryByModel won't take this in count. We strongly recommend to check if those validations cover the cases you expect, and if it doesn't, you can add your own code on this file (or just define a new factory).
-
 
 #### Debugging
 

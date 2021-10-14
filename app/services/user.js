@@ -22,7 +22,6 @@ exports.findUserByEmail = async email => {
   try {
     const userExist = await user.findOne({ where: { email } });
     logger.info('find user');
-    console.log(userExist);
     return userExist;
   } catch (error) {
     logger.error(error.message);
