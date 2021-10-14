@@ -18,7 +18,7 @@ exports.passwordError = message => internalError(message, exports.PASSWORD_ERROR
 exports.HASH_ERROR = 'bycript_error';
 exports.hashError = message => internalError(message, exports.HASH_ERROR);
 
-exports.USER_ERROR = 'exist_user';
+exports.USER_ERROR = 'user_exist';
 exports.userError = message => internalError(message, exports.USER_ERROR);
 
 exports.WEET_API_ERROR = 'api_error';
