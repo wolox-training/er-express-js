@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 const app = require('../app');
-const { USER_ERROR, PASSWORD_ERROR } = require('../config/messageError');
-const { USER_ERROR: USER_CODE, PASSWORD_ERROR: PASSWORD_CODE } = require('../app/errors');
+const { USER_ERROR } = require('../config/messageError');
+const { USER_ERROR: USER_CODE } = require('../app/errors');
 
 const api = supertest(app);
 
@@ -33,7 +33,16 @@ describe('User registration controller', () => {
       .post('/users')
       .send(user)
       .set('Accept', 'application/json')
-      .expect(422, { message: PASSWORD_ERROR, internal_code: PASSWORD_CODE })
+      .expect(422, {
+        errors: {
+          password: {
+            value: '1234567',
+            msg: 'Password should be at least 8 chars long',
+            param: 'password',
+            location: 'body'
+          }
+        }
+      })
       .expect('Content-Type', /application\/json/);
     done();
   });
