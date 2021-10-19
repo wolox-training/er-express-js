@@ -20,9 +20,9 @@ exports.registerUser = async (name, lastName, email, password) => {
 
 exports.findUserByEmail = async email => {
   try {
-    const userExist = await user.findOne({ where: { email } });
+    const findUser = await user.findOne({ where: { email } });
     logger.info('find user');
-    return userExist;
+    return findUser;
   } catch (error) {
     logger.error(error.message);
     throw databaseError(DB_ERROR);

@@ -23,3 +23,9 @@ exports.userError = message => internalError(message, exports.USER_ERROR);
 
 exports.WEET_API_ERROR = 'api_error';
 exports.weetApiError = message => internalError(message, exports.WEET_API_ERROR);
+
+exports.SESSION_ERROR = 'password_invalid';
+exports.sessionError = message => internalError(message, exports.SESSION_ERROR);
+
+exports.USER_FIND_ERROR = 'user_not_found';
+exports.userFindError = message => internalError(message, exports.USER_FIND_ERROR);

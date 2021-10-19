@@ -4,3 +4,5 @@ exports.PASSWORD_ERROR = 'the password does not meet the minimum requirements';
 exports.HASH_ERROR = 'failed to encrypt password';
 exports.USER_ERROR = 'user already exists';
 exports.API_ERROR = 'There is an error in Api Weet';
+exports.SESSION_ERROR = 'Incorrect password';
+exports.USER_FIND_ERROR = 'User not found';
