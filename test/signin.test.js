@@ -1,7 +1,6 @@
 const supertest = require('supertest');
 const app = require('../app');
-const { USER_FIND_ERROR, SESSION_ERROR } = require('../config/messageError');
-const { USER_FIND_ERROR: USER_NOT_FOUND, SESSION_ERROR: PASSWORD_INVALID } = require('../app/errors');
+const { SESSION_ERROR } = require('../config/messageError');
 
 const api = supertest(app);
 
@@ -23,7 +22,15 @@ describe('User sign in controller', () => {
       .send(userLoggin)
       .set('Accept', 'application/json')
       .expect(200)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
+      .then(res => {
+        expect(res.body).toHaveProperty('token');
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            token: expect.any(String)
+          })
+        );
+      });
     done();
   });
   test('user not found', async () => {
@@ -35,7 +42,17 @@ describe('User sign in controller', () => {
       .post('/users/sessions')
       .send(userLoggin)
       .set('Accept', 'application/json')
-      .expect(404, { message: USER_FIND_ERROR, internal_code: USER_NOT_FOUND })
+      .expect(422, {
+        message: {
+          email: {
+            value: 'edilberto.roa@wolox.co',
+            msg: SESSION_ERROR,
+            param: 'email',
+            location: 'body'
+          }
+        },
+        internal_code: 'request_error'
+      })
       .expect('Content-Type', /application\/json/);
   });
   test('password invalid', async done => {
@@ -48,7 +65,10 @@ describe('User sign in controller', () => {
       .post('/users/sessions')
       .send(userLoggin)
       .set('Accept', 'application/json')
-      .expect(401, { message: SESSION_ERROR, internal_code: PASSWORD_INVALID })
+      .expect(422, {
+        message: SESSION_ERROR,
+        internal_code: 'request_error'
+      })
       .expect('Content-Type', /application\/json/);
     done();
   });

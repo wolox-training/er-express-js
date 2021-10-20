@@ -2,31 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const logger = require('../logger');
-const { emailError, passwordError, hashError, sessionError } = require('../errors');
-const { EMAIL_ERROR, PASSWORD_ERROR, HASH_ERROR, SESSION_ERROR } = require('../../config/messageError');
-
-exports.verifyEmail = email => {
-  try {
-    const verify = /^\w+([\\.-]?\w+)*@(?:|wolox)\.(?:|co)+$/;
-    if (verify.test(email)) return logger.info('validated email domain');
-    logger.error(EMAIL_ERROR);
-    throw emailError(EMAIL_ERROR);
-  } catch (error) {
-    logger.error(error.message);
-    throw emailError(EMAIL_ERROR);
-  }
-};
-exports.verifyPassword = pwd => {
-  try {
-    const password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (password.test(pwd)) return logger.info('validated password');
-    logger.error(PASSWORD_ERROR);
-    throw passwordError(PASSWORD_ERROR);
-  } catch (error) {
-    logger.error(error.message);
-    throw passwordError(PASSWORD_ERROR);
-  }
-};
+const { hashError, tokenError, requestError } = require('../errors');
+const { HASH_ERROR, TOKEN_ERROR, SESSION_ERROR } = require('../../config/messageError');
 
 exports.encriptPassword = pwd => {
   try {
@@ -43,28 +20,29 @@ exports.validatePassword = async (userPassword, password) => {
     logger.info('password validate');
     const match = await bcrypt.compare(password, userPassword);
     if (match) return logger.info('validate password success');
-    throw sessionError(SESSION_ERROR);
+    throw requestError(SESSION_ERROR);
   } catch (error) {
     logger.error(error.message);
-    throw sessionError(SESSION_ERROR);
+    throw requestError(SESSION_ERROR);
   }
 };
 
-exports.createToken = (name, email) => {
+exports.createToken = (id, name, email) => {
   try {
     logger.info('creating token');
     const payload = {
+      id,
       name,
       email,
       iat: moment().unix(),
       exp: moment()
-        .add(4, 'hours')
+        .add(process.env.TIME_TOKEN, 'hours')
         .unix()
     };
     logger.info('token created');
     return jwt.sign(payload, process.env.KEY_TOKEN);
   } catch (error) {
     logger.error(error.message);
-    throw sessionError(SESSION_ERROR);
+    throw tokenError(TOKEN_ERROR);
   }
 };
