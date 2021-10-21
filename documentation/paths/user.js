@@ -16,7 +16,7 @@ module.exports = {
         required: true
       },
       responses: {
-        200: {
+        201: {
           description: 'New user was created',
           content: {
             'application/json': {
