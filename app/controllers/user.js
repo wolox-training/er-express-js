@@ -1,4 +1,4 @@
-const { registerUser, findUserByEmail } = require('../services/user');
+const { registerUser, findUserByEmail, getAllUsers } = require('../services/user');
 const { encriptPassword, createToken, validatePassword } = require('../helpers/user');
 const logger = require('../logger');
 
@@ -30,6 +30,17 @@ exports.signIn = async (req, res, next) => {
     return res.status(200).json({ token });
   } catch (error) {
     logger.error(error.message);
+    return next(error);
+  }
+};
+
+exports.listUsers = async (req, res, next) => {
+  try {
+    const { offset, limit } = req.query;
+    const infoUsers = await getAllUsers(offset, limit);
+    const users = infoUsers.map(user => ({ name: user.name, lastName: user.lastName, email: user.email }));
+    return res.status(200).json({ users });
+  } catch (error) {
     return next(error);
   }
 };

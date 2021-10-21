@@ -72,3 +72,20 @@ exports.schemaSignIn = checkSchema({
     }
   }
 });
+
+exports.schemaGetUsers = checkSchema({
+  offset: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'invalid data'
+    }
+  },
+  limit: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'invalid data'
+    }
+  }
+});

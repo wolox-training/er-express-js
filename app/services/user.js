@@ -28,3 +28,14 @@ exports.findUserByEmail = async email => {
     throw databaseError(DB_ERROR);
   }
 };
+
+exports.getAllUsers = async (offset, limit) => {
+  try {
+    const users = await user.findAll({ offset, limit });
+    logger.info('get users');
+    return users;
+  } catch (error) {
+    logger.error(error);
+    throw databaseError(DB_ERROR);
+  }
+};
