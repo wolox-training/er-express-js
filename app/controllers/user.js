@@ -4,7 +4,7 @@ const logger = require('../logger');
 
 exports.createUser = async (req, res, next) => {
   try {
-    logger.info(`createUser controller start, request: ${req.body}`);
+    logger.info(`createUser start, request: ${req.body.name} ${req.body.lastName} ${req.body.email}`);
     const { name, lastName, email } = req.body;
     const password = await encriptPassword(req.body.password);
     const user = await registerUser(name, lastName, email, password);
@@ -22,7 +22,7 @@ exports.createUser = async (req, res, next) => {
 
 exports.signIn = async (req, res, next) => {
   try {
-    logger.info(`signIn controller start, request: ${req.body}`);
+    logger.info(`signIn controller start, request: ${req.body.email}`);
     const { email, password } = req.body;
     const user = await findUserByEmail(email);
     await validatePassword(user.password, password);

@@ -2,13 +2,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const logger = require('../logger');
+const config = require('../../config').common;
 const { hashError, tokenError, requestError } = require('../errors');
 const { HASH_ERROR, TOKEN_ERROR, SESSION_ERROR } = require('../../config/messageError');
 
 exports.encriptPassword = pwd => {
   try {
     logger.info('password encript');
-    return bcrypt.hash(pwd, parseInt(process.env.LENGTH_HASH));
+    return bcrypt.hash(pwd, parseInt(config.bcrypt.lengthHash));
   } catch (error) {
     logger.error(error.message);
     throw hashError(HASH_ERROR);
@@ -36,11 +37,11 @@ exports.createToken = (id, name, email) => {
       email,
       iat: moment().unix(),
       exp: moment()
-        .add(process.env.TIME_TOKEN, 'hours')
+        .add(config.session.timeToken, 'hours')
         .unix()
     };
     logger.info('token created');
-    return jwt.sign(payload, process.env.KEY_TOKEN);
+    return jwt.sign(payload, config.session.keyToken);
   } catch (error) {
     logger.error(error.message);
     throw tokenError(TOKEN_ERROR);
