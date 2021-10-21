@@ -1,5 +1,5 @@
 const { checkSchema } = require('express-validator');
-const { EMAIL_ERROR, USER_ERROR } = require('../../config/messageError');
+const { EMAIL_ERROR, USER_ERROR, SESSION_ERROR } = require('../../config/messageError');
 const { findUserByEmail } = require('../services/user');
 
 exports.schemaUser = checkSchema({
@@ -43,6 +43,32 @@ exports.schemaUser = checkSchema({
   lastName: {
     exists: {
       errorMessage: 'lastName is required'
+    }
+  }
+});
+
+exports.schemaSignIn = checkSchema({
+  email: {
+    exists: {
+      errorMessage: 'Email is required'
+    },
+    custom: {
+      options: value =>
+        findUserByEmail(value).then(user => {
+          if (!user) throw new Error(SESSION_ERROR);
+        })
+    },
+    matches: {
+      options: /^\w+([\\.-]?\w+)*@(?:|wolox)\.(?:|co)+$/,
+      errorMessage: SESSION_ERROR
+    },
+    isEmail: {
+      bail: true
+    }
+  },
+  password: {
+    exists: {
+      errorMessage: SESSION_ERROR
     }
   }
 });

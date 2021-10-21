@@ -37,12 +37,17 @@ const config = {
     },
     session: {
       header_name: 'authorization',
-      secret: process.env.NODE_API_SESSION_SECRET
+      secret: process.env.NODE_API_SESSION_SECRET,
+      keyToken: process.env.KEY_TOKEN,
+      timeToken: process.env.TIME_TOKEN || '4'
     },
     headers: {
       apiDate: process.env.API_DATE || 'X-API-Date',
       packageVersion: process.env.PACKAGE_VERSION || 'X-Package-Version',
       nodeVersion: process.env.NODE_VERSION || 'X-Node-Version'
+    },
+    bcrypt: {
+      lengthHash: process.env.LENGTH_HASH || '15'
     },
     apiClient: process.env.CLIENTS_API
   }

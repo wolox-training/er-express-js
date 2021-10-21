@@ -17,3 +17,6 @@ exports.weetApiError = message => internalError(message, exports.WEET_API_ERROR)
 
 exports.REQUEST_ERROR = 'request_error';
 exports.requestError = message => internalError(message, exports.REQUEST_ERROR);
+
+exports.TOKEN_ERROR = 'token_error';
+exports.tokenError = message => internalError(message, exports.TOKEN_ERROR);
