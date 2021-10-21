@@ -9,17 +9,11 @@ exports.databaseError = message => internalError(message, exports.DATABASE_ERROR
 exports.DEFAULT_ERROR = 'default_error';
 exports.defaultError = message => internalError(message, exports.DEFAULT_ERROR);
 
-exports.EMAIL_ERROR = 'domain_invalid';
-exports.emailError = message => internalError(message, exports.EMAIL_ERROR);
-
-exports.PASSWORD_ERROR = 'password_invalid';
-exports.passwordError = message => internalError(message, exports.PASSWORD_ERROR);
-
 exports.HASH_ERROR = 'bycript_error';
 exports.hashError = message => internalError(message, exports.HASH_ERROR);
 
-exports.USER_ERROR = 'user_exist';
-exports.userError = message => internalError(message, exports.USER_ERROR);
-
 exports.WEET_API_ERROR = 'api_error';
 exports.weetApiError = message => internalError(message, exports.WEET_API_ERROR);
+
+exports.REQUEST_ERROR = 'request_error';
+exports.requestError = message => internalError(message, exports.REQUEST_ERROR);
