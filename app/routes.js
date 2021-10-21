@@ -1,8 +1,8 @@
 const { createUser, signIn, listUsers } = require('./controllers/user');
 const { healthCheck } = require('./controllers/healthCheck');
-const { schemaValidations } = require('./middlewares/user');
 const { validateAuth } = require('./middlewares/validateAuth');
 const { schemaUser, schemaSignIn, schemaGetUsers } = require('./schemas/user');
+const { schemaValidations } = require('./middlewares/schemaValidator');
 
 exports.init = app => {
   app.get('/health', healthCheck);
