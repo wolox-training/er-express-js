@@ -1,10 +1,16 @@
 const supertest = require('supertest');
 const app = require('../app');
-// const { SESSION_ERROR } = require('../config/messageError');
+const { createToken } = require('../app/helpers/user');
 
 const api = supertest(app);
 
 describe('Get users controller', () => {
+  const user = {
+    email: 'root@wolox.co',
+    name: 'User',
+    lastName: 'Root',
+    password: '12345678e'
+  };
   const userFirts = {
     email: 'edilberto1@wolox.co',
     name: 'Edilberto',
@@ -17,19 +23,13 @@ describe('Get users controller', () => {
     lastName: 'Roa',
     password: '12345678e'
   };
+  const token = createToken(1, user.name, user.email, 'admin');
+
   beforeEach(async () => {
     await api.post('/users').send(userFirts);
     await api.post('/users').send(userSecond);
   });
-  test.only('get users', async done => {
-    const userLoggin = {
-      email: 'edilberto1@wolox.co',
-      password: '12345678e'
-    };
-    const token = await api
-      .post('/users/sessions')
-      .send(userLoggin)
-      .then(res => res.body.token);
+  test('get users', async done => {
     await api
       .get('/users')
       .set('Accept', 'application/json')

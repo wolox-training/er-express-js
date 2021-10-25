@@ -12,7 +12,7 @@ exports.validateAuth = (req, res, next) => {
     const payload = jwt.decode(token, config.session.keyToken);
     if (!req.headers.token) return next(authError(AUTH_ERROR));
     else if (payload.exp <= moment().unix()) return next(authError(AUTH_ERROR));
-    else if (payload) return next();
+    else if (payload.role === 'admin') return next();
     throw authorizationError(AUTHORIZATION_ERROR);
   } catch (error) {
     logger.error(error);

@@ -19,9 +19,9 @@ exports.schemaUser = checkSchema({
   },
   email: {
     custom: {
-      options: value =>
+      options: (value, { req }) =>
         findUserByEmail(value).then(user => {
-          if (user) throw new Error(USER_ERROR);
+          if (user && req.path !== '/admin/users') throw new Error(USER_ERROR);
         })
     },
     exists: {
