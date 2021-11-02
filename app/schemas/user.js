@@ -72,3 +72,20 @@ exports.schemaSignIn = checkSchema({
     }
   }
 });
+
+exports.schemaGetUsers = checkSchema({
+  offset: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'only number integer'
+    }
+  },
+  limit: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'only number integer'
+    }
+  }
+});
