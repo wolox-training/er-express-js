@@ -7,17 +7,33 @@ const api = supertest(app);
 
 describe('User registration controller', () => {
   test('create user', async done => {
-    const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '12345678e' };
+    const user = {
+      email: 'edilberto@wolox.co',
+      name: 'Edilberto',
+      lastName: 'Roa',
+      password: '12345678e'
+    };
     await api
       .post('/users')
       .send(user)
       .set('Accept', 'application/json')
-      .expect(201, { name: user.name, lastName: user.lastName, email: user.email })
+      .expect(201, {
+        id: 1,
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        role: 'regular'
+      })
       .expect('Content-Type', /application\/json/);
     done();
   });
   test('user already exists', async () => {
-    const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '12345678e' };
+    const user = {
+      email: 'edilberto@wolox.co',
+      name: 'Edilberto',
+      lastName: 'Roa',
+      password: '12345678e'
+    };
     await api.post('/users').send(user);
     await api
       .post('/users')
@@ -38,7 +54,12 @@ describe('User registration controller', () => {
   });
 
   test('password invalid', async done => {
-    const user = { email: 'edilberto@wolox.co', name: 'Edilberto', lastName: 'Roa', password: '1234567' };
+    const user = {
+      email: 'edilberto@wolox.co',
+      name: 'Edilberto',
+      lastName: 'Roa',
+      password: '1234567'
+    };
     await api
       .post('/users')
       .send(user)

@@ -19,9 +19,9 @@ exports.schemaUser = checkSchema({
   },
   email: {
     custom: {
-      options: value =>
+      options: (value, { req }) =>
         findUserByEmail(value).then(user => {
-          if (user) throw new Error(USER_ERROR);
+          if (user && req.path !== '/admin/users') throw new Error(USER_ERROR);
         })
     },
     exists: {
@@ -69,6 +69,23 @@ exports.schemaSignIn = checkSchema({
   password: {
     exists: {
       errorMessage: SESSION_ERROR
+    }
+  }
+});
+
+exports.schemaGetUsers = checkSchema({
+  offset: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'invalid data'
+    }
+  },
+  limit: {
+    optional: { options: { nullable: true } },
+    in: ['query'],
+    isInt: {
+      errorMessage: 'invalid data'
     }
   }
 });

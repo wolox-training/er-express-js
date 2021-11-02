@@ -27,6 +27,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      role: {
+        allowNull: true,
+        type: Sequelize.STRING,
+        defaultValue: 'regular'
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

@@ -20,3 +20,9 @@ exports.requestError = message => internalError(message, exports.REQUEST_ERROR);
 
 exports.TOKEN_ERROR = 'token_error';
 exports.tokenError = message => internalError(message, exports.TOKEN_ERROR);
+
+exports.AUTH_ERROR = 'token_invalid_error';
+exports.authError = message => internalError(message, exports.AUTH_ERROR);
+
+exports.AUTHORIZATION_ERROR = 'access_denied';
+exports.authorizationError = message => internalError(message, exports.AUTHORIZATION_ERROR);

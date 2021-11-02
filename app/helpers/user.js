@@ -28,13 +28,14 @@ exports.validatePassword = async (userPassword, password) => {
   }
 };
 
-exports.createToken = (id, name, email) => {
+exports.createToken = (id, name, email, role) => {
   try {
     logger.info('creating token');
     const payload = {
       id,
       name,
       email,
+      role,
       iat: moment().unix(),
       exp: moment()
         .add(config.session.timeToken, 'hours')
