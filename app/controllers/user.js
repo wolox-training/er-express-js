@@ -44,6 +44,7 @@ exports.listUsers = async (req, res, next) => {
 exports.createUserAdmin = async (req, res, next) => {
   try {
     const { name, lastName, email } = req.body;
+    logger.info(`createUserAdmin start, request: ${name} ${lastName} ${email}`);
     const password = await encriptPassword(req.body.password);
     const createAdmin = await userAdmin(name, lastName, email, password);
     return res.status(201).json(createAdmin);
