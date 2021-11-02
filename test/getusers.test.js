@@ -1,6 +1,5 @@
 const supertest = require('supertest');
 const app = require('../app');
-// const { SESSION_ERROR } = require('../config/messageError');
 
 const api = supertest(app);
 
@@ -21,7 +20,7 @@ describe('Get users controller', () => {
     await api.post('/users').send(userFirts);
     await api.post('/users').send(userSecond);
   });
-  test.only('get users', async done => {
+  test('get users', async done => {
     const userLoggin = {
       email: 'edilberto1@wolox.co',
       password: '12345678e'

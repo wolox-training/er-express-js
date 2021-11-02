@@ -78,14 +78,14 @@ exports.schemaGetUsers = checkSchema({
     optional: { options: { nullable: true } },
     in: ['query'],
     isInt: {
-      errorMessage: 'invalid data'
+      errorMessage: 'only number integer'
     }
   },
   limit: {
     optional: { options: { nullable: true } },
     in: ['query'],
     isInt: {
-      errorMessage: 'invalid data'
+      errorMessage: 'only number integer'
     }
   }
 });

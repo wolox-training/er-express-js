@@ -36,6 +36,7 @@ exports.signIn = async (req, res, next) => {
 
 exports.listUsers = async (req, res, next) => {
   try {
+    logger.info('listUsers start');
     const { offset, limit } = req.query;
     const infoUsers = await getAllUsers(offset, limit);
     const users = infoUsers.map(user => ({ name: user.name, lastName: user.lastName, email: user.email }));
